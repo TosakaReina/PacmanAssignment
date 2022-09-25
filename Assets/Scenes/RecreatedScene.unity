@@ -14752,7 +14752,7 @@ GameObject:
   - component: {fileID: 569642922}
   - component: {fileID: 569642924}
   m_Layer: 0
-  m_Name: Intro_BGM
+  m_Name: IntroBGM_followedby_NormalBGM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
