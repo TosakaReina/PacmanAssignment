@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Tweener : MonoBehaviour
 {
-    //public Tween activeTween;
+    
     public Tween activeTween;
 
     private float elapsedTime;
+    
 
 
     // Start is called before the first frame update
@@ -21,12 +22,18 @@ public class Tweener : MonoBehaviour
     {
         if (activeTween != null)
         {
+            float distance = Vector3.Distance(activeTween.Target.position, activeTween.EndPos);
             elapsedTime += Time.deltaTime;
             float timeFraction = elapsedTime / activeTween.Duration;
 
             activeTween.Target.position = Vector3.Lerp(activeTween.StartPos, activeTween.EndPos, timeFraction);
+            if(distance < 0.001)
+            {
+                activeTween.Target.position = activeTween.EndPos;
+                elapsedTime = 0.0f;
+                activeTween = null;
+            }
         }
-
     }
 
     
