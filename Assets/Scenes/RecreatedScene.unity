@@ -5331,6 +5331,69 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &251780031
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132945, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132948, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_Name
+      value: Pacman_animation
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837843482962132950, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6733c505495b54cfb9970b6e47bae1e1, type: 3}
 --- !u!1 &254249041
 GameObject:
   m_ObjectHideFlags: 0
