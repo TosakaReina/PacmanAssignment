@@ -7,6 +7,7 @@ public class PacStudentController : MonoBehaviour
     [SerializeField]
     private GameObject item;
     private Tweener tweener;
+    private KeyCode lastInput;
 
     private float elapsedTime;
     private Vector2 destination;
@@ -21,20 +22,38 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((Vector2)item.transform.position == destination)
+        if (Input.GetKey(KeyCode.W))
         {
-            if (Input.GetKey(KeyCode.W))
+            lastInput = KeyCode.W;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            lastInput = KeyCode.S;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            lastInput = KeyCode.A;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            lastInput = KeyCode.D;
+        }
+
+        if ((Vector2)item.transform.position == destination)
+        {
+            
+            if (lastInput == KeyCode.W)
             {
                 destination += Vector2.up;
-            }else if (Input.GetKey(KeyCode.S))
+            }else if (lastInput == KeyCode.S)
             {
                 destination += Vector2.down;
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (lastInput == KeyCode.A)
             {
                 destination += Vector2.left;
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (lastInput == KeyCode.D)
             {
                 destination += Vector2.right;
             }

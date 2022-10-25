@@ -15464,7 +15464,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: 9981a44e008104f4b8e39e3a2afdaa06, type: 3}
   - {fileID: 8300000, guid: dac3d3a37d4114fb2acad4b71a8c41d1, type: 3}
 --- !u!1 &579258559
 GameObject:
