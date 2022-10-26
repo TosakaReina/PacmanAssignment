@@ -9,6 +9,8 @@ public class PacStudentController : MonoBehaviour
     private Tweener tweener;
     private KeyCode lastInput;
     public Animator PacAnimator;
+    public AudioSource footstepSource;
+    public AudioClip[] footStepClips;
 
     private float elapsedTime;
     private Vector2 destination;
@@ -69,6 +71,9 @@ public class PacStudentController : MonoBehaviour
             }
 
             tweener.AddTween(item.transform, item.transform.position, destination, 0.25f);
+            footstepSource.clip = footStepClips[0];
+            footstepSource.volume = 0.8f;
+            footstepSource.Play();
         }
 
         if(tweener.activeTween == null)
