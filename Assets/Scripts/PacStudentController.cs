@@ -8,6 +8,7 @@ public class PacStudentController : MonoBehaviour
     private GameObject item;
     private Tweener tweener;
     private KeyCode lastInput;
+    public Animator PacAnimator;
 
     private float elapsedTime;
     private Vector2 destination;
@@ -39,26 +40,44 @@ public class PacStudentController : MonoBehaviour
             lastInput = KeyCode.D;
         }
 
-        if ((Vector2)item.transform.position == destination)
+        if ((Vector2)item.transform.position == destination && lastInput != KeyCode.None)
         {
             
             if (lastInput == KeyCode.W)
             {
                 destination += Vector2.up;
+                PacAnimator.SetBool("Up", true);
+                PacAnimator.SetBool("Left", false);
+             
             }else if (lastInput == KeyCode.S)
             {
                 destination += Vector2.down;
+                PacAnimator.SetBool("Up", false);
+                PacAnimator.SetBool("Left", true);
             }
             else if (lastInput == KeyCode.A)
             {
                 destination += Vector2.left;
+                PacAnimator.SetBool("Up", true);
+                PacAnimator.SetBool("Left", true);
             }
             else if (lastInput == KeyCode.D)
             {
                 destination += Vector2.right;
+                PacAnimator.SetBool("Up", false);
+                PacAnimator.SetBool("Left", false);
             }
 
             tweener.AddTween(item.transform, item.transform.position, destination, 0.25f);
+        }
+
+        if(tweener.activeTween == null)
+        {
+            PacAnimator.speed = 0;
+        }
+        else
+        {
+            PacAnimator.speed = 1;
         }
     }
 
