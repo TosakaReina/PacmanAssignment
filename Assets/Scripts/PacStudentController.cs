@@ -16,6 +16,8 @@ public class PacStudentController : MonoBehaviour
 
     private float elapsedTime;
     private Vector2 destination;
+    private Vector2 teleportLeft = new Vector2(-14, 0);
+    private Vector2 teleportRight = new Vector2(13, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,11 @@ public class PacStudentController : MonoBehaviour
     void Update()
     {
         pacManMovement();
+        PacmanTP();
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log(item.transform.position);
+        }
         
     }
 
@@ -94,6 +101,32 @@ public class PacStudentController : MonoBehaviour
         {
             PacAnimator.speed = 1;
         }
+    }
+
+    private void PacmanTP()
+    {
+        if((Vector2)item.transform.position == teleportLeft)
+        {
+            if(lastInput == KeyCode.A)
+            {
+                tweener.activeTween = null;
+                item.transform.position = (Vector3)teleportRight;
+                destination = (Vector2)item.transform.position + Vector2.left;
+                tweener.AddTween(item.transform, item.transform.position, destination, 0.25f);
+            }
+        }
+
+        if ((Vector2)item.transform.position == teleportRight)
+        {
+            if (lastInput == KeyCode.D)
+            {
+                tweener.activeTween = null;
+                item.transform.position = (Vector3)teleportLeft;
+                destination = (Vector2)item.transform.position + Vector2.right;
+                tweener.AddTween(item.transform, item.transform.position, destination, 0.25f);
+            }
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
