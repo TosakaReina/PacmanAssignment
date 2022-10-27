@@ -9,8 +9,8 @@ public class CherryController : MonoBehaviour
     private float xPos;
     private float yPos;
     private Vector3 randomPos;
-    private GameObject CloneCherry;
-    private bool destroyed = false;
+    public GameObject CloneCherry;
+    public bool destroyed = false;
 
     private float elapsedTime;
     private float times = 0.0f;
@@ -77,5 +77,9 @@ public class CherryController : MonoBehaviour
         }
     }
 
+    
+
 
 }
+
+

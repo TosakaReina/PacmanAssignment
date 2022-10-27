@@ -11,8 +11,13 @@ public class PacStudentController : MonoBehaviour
     public Animator PacAnimator;
     public AudioSource footstepSource;
     public AudioClip[] footStepClips;
+
     public ParticleSystem wallCollisionParticle;
     private ParticleSystem CloneParticle;
+
+    public GameObject cherrySpwaner;
+    public GameObject ghostStateController;
+    public GameObject BackgourndMusic;
 
     private float elapsedTime;
     private Vector2 destination;
@@ -88,8 +93,8 @@ public class PacStudentController : MonoBehaviour
             }
 
             tweener.AddTween(item.transform, item.transform.position, destination, 0.25f);
-            footstepSource.clip = footStepClips[0];
-            footstepSource.volume = 0.8f;
+            footstepSource.clip = footStepClips[1];
+            footstepSource.volume = 0.5f;
             footstepSource.Play();
         }
 
@@ -174,6 +179,25 @@ public class PacStudentController : MonoBehaviour
             footstepSource.clip = footStepClips[2];
             footstepSource.volume = 0.5f;
             footstepSource.Play();
+        }else if (collision.gameObject.CompareTag("Pellet"))
+        {
+            Destroy(collision.gameObject);
+            footstepSource.clip = footStepClips[0];
+            footstepSource.volume = 0.2f;
+            footstepSource.Play();
+        }
+        else if (collision.gameObject.CompareTag("Cherry"))
+        {
+            Destroy(cherrySpwaner.GetComponent<CherryController>().CloneCherry);
+            cherrySpwaner.GetComponent<CherryController>().destroyed = true;
+
+        }else if (collision.gameObject.CompareTag("PowerPellet"))
+        {
+            Destroy(collision.gameObject);
+            footstepSource.clip = footStepClips[0];
+            footstepSource.volume = 0.2f;
+            footstepSource.Play();
+            ghostStateController.GetComponent<GhostStateController>().scared = true;
         }
     }
 
