@@ -25,6 +25,7 @@ public class PacStudentController : MonoBehaviour
     private Vector2 teleportRight = new Vector2(13, 0);
     private bool scaredBGMplayed = false;
     private bool pacDead = false;
+    private bool powerPacman = false;
 
     // Start is called before the first frame update
     void Start()
@@ -101,9 +102,16 @@ public class PacStudentController : MonoBehaviour
             footstepSource.Play();
         }
 
-        if (tweener.activeTween == null && !pacDead)
+        if (tweener.activeTween == null)
         {
-            PacAnimator.speed = 0;
+            if (pacDead)
+            {
+                PacAnimator.speed = 1;
+            }
+            else if(!pacDead)
+            {
+                PacAnimator.speed = 0;
+            }
         }
         else
         {
@@ -196,6 +204,7 @@ public class PacStudentController : MonoBehaviour
 
         }else if (collision.gameObject.CompareTag("PowerPellet"))
         {
+            powerPacman = true;
             Destroy(collision.gameObject);
             footstepSource.clip = footStepClips[0];
             footstepSource.volume = 0.2f;
@@ -206,13 +215,33 @@ public class PacStudentController : MonoBehaviour
             scaredBGMplayed = true;
         }else if (collision.gameObject.CompareTag("Ghost"))
         {
-
-            PacAnimator.SetBool("die", true);
-            pacDead = true;
-            tweener.activeTween = null;
-            Invoke("respawnPac", 2.0f);
-            pacDead = false;
-            PacAnimator.SetBool("die", false);
+            //ghost walking state
+            if (!powerPacman)
+            {
+                PacAnimator.SetBool("die", true);
+                pacDead = true;
+                tweener.activeTween = null;
+                Invoke("respawnPac", 0.85f);
+            }
+            //ghost Scared or Recovering state
+            else
+            {
+                if (collision.gameObject == ghostStateController.GetComponent<GhostStateController>().ghost1)
+                {
+                    ghostStateController.GetComponent<GhostStateController>().G1dead = true;
+                }else if (collision.gameObject == ghostStateController.GetComponent<GhostStateController>().ghost2)
+                {
+                    ghostStateController.GetComponent<GhostStateController>().G2dead = true;
+                }
+                else if (collision.gameObject == ghostStateController.GetComponent<GhostStateController>().ghost3)
+                {
+                    ghostStateController.GetComponent<GhostStateController>().G3dead = true;
+                }
+                else if (collision.gameObject == ghostStateController.GetComponent<GhostStateController>().ghost4)
+                {
+                    ghostStateController.GetComponent<GhostStateController>().G4dead = true;
+                }
+            }
         }
     }
 
@@ -234,6 +263,7 @@ public class PacStudentController : MonoBehaviour
                 scaredBGMplayed = false;
                 elapsedTime = 0.0f;
                 ghostStateController.GetComponent<GhostStateController>().recovering = false;
+                powerPacman = false;
             }
         }
     }
@@ -242,6 +272,11 @@ public class PacStudentController : MonoBehaviour
     {
         item.transform.position = new Vector3(-13.0f, 13.0f, 0.0f);
         destination = item.transform.position;
+        pacDead = false;
+        PacAnimator.SetBool("die", false);
+        PacAnimator.SetBool("Up", false);
+        PacAnimator.SetBool("Left", false);
+        lastInput = KeyCode.None;
     }
 
 
