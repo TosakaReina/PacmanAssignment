@@ -16017,6 +16017,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98036521f6e994a3a9f570ef0c473bd9, type: 3}
   - {fileID: 8300000, guid: b2cc5e279a2da46eaa117662aa01324d, type: 3}
   - {fileID: 8300000, guid: 88c96821926d944cf91aea069b1bdf6d, type: 3}
+  - {fileID: 8300000, guid: 840756f9bdc7f4ed19b9de320e24971d, type: 3}
   wallCollisionParticle: {fileID: 2006744525}
   cherrySpwaner: {fileID: 1848806871}
   ghostStateController: {fileID: 1703975908}
@@ -24344,6 +24345,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: dac3d3a37d4114fb2acad4b71a8c41d1, type: 3}
   - {fileID: 8300000, guid: 71ccf82572b634bbfab9d5749a9f33e0, type: 3}
+  - {fileID: 8300000, guid: 314ebc0728e394fd5b7cd5402ce5f1ff, type: 3}
 --- !u!1 &579258559
 GameObject:
   m_ObjectHideFlags: 0
@@ -63715,8 +63717,13 @@ MonoBehaviour:
   ghost2: {fileID: 929317161}
   ghost3: {fileID: 783101381}
   ghost4: {fileID: 664225528}
+  BackgourndMusic: {fileID: 569642921}
   scared: 0
   recovering: 0
+  G1dead: 0
+  G2dead: 0
+  G3dead: 0
+  G4dead: 0
 --- !u!4 &1703975910
 Transform:
   m_ObjectHideFlags: 0
@@ -63725,7 +63732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703975908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1665251, y: 1.2009506, z: -10.111768}
+  m_LocalPosition: {x: 20, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

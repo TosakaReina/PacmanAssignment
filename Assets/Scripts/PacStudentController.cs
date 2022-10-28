@@ -24,6 +24,7 @@ public class PacStudentController : MonoBehaviour
     private Vector2 teleportLeft = new Vector2(-14, 0);
     private Vector2 teleportRight = new Vector2(13, 0);
     private bool scaredBGMplayed = false;
+    private bool deadBGMplayed = false;
     private bool pacDead = false;
     private bool powerPacman = false;
 
@@ -44,6 +45,7 @@ public class PacStudentController : MonoBehaviour
             Debug.Log(item.transform.position);
         }
         StopScaredBGM();
+        StopDeadBGM();
         
     }
 
@@ -97,6 +99,8 @@ public class PacStudentController : MonoBehaviour
             }
 
             tweener.AddTween(item.transform, item.transform.position, destination, 0.25f);
+
+            //walking audio
             footstepSource.clip = footStepClips[1];
             footstepSource.volume = 0.5f;
             footstepSource.Play();
@@ -190,19 +194,27 @@ public class PacStudentController : MonoBehaviour
             footstepSource.clip = footStepClips[2];
             footstepSource.volume = 0.5f;
             footstepSource.Play();
-        }else if (collision.gameObject.CompareTag("Pellet"))
+        }
+
+        //collide Pellet
+        else if (collision.gameObject.CompareTag("Pellet"))
         {
             Destroy(collision.gameObject);
             footstepSource.clip = footStepClips[0];
             footstepSource.volume = 0.2f;
             footstepSource.Play();
         }
+
+        //collide Cherry
         else if (collision.gameObject.CompareTag("Cherry"))
         {
             Destroy(cherrySpwaner.GetComponent<CherryController>().CloneCherry);
             cherrySpwaner.GetComponent<CherryController>().destroyed = true;
 
-        }else if (collision.gameObject.CompareTag("PowerPellet"))
+        }
+
+        //collide PowerPellet
+        else if (collision.gameObject.CompareTag("PowerPellet"))
         {
             powerPacman = true;
             Destroy(collision.gameObject);
@@ -213,11 +225,17 @@ public class PacStudentController : MonoBehaviour
             BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[1];
             BackgourndMusic.GetComponent<AudioSource>().Play();
             scaredBGMplayed = true;
-        }else if (collision.gameObject.CompareTag("Ghost"))
+        }
+
+        //collide Ghost
+        else if (collision.gameObject.CompareTag("Ghost"))
         {
             //ghost walking state
             if (!powerPacman)
             {
+                footstepSource.clip = footStepClips[3];
+                footstepSource.volume = 0.2f;
+                footstepSource.Play();
                 PacAnimator.SetBool("die", true);
                 pacDead = true;
                 tweener.activeTween = null;
@@ -241,6 +259,9 @@ public class PacStudentController : MonoBehaviour
                 {
                     ghostStateController.GetComponent<GhostStateController>().G4dead = true;
                 }
+                BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[2];
+                BackgourndMusic.GetComponent<AudioSource>().Play();
+                deadBGMplayed = true;
             }
         }
     }
@@ -260,13 +281,29 @@ public class PacStudentController : MonoBehaviour
             {
                 BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[0];
                 BackgourndMusic.GetComponent<AudioSource>().Play();
-                scaredBGMplayed = false;
                 elapsedTime = 0.0f;
                 ghostStateController.GetComponent<GhostStateController>().recovering = false;
                 powerPacman = false;
+                scaredBGMplayed = false;
             }
         }
     }
+
+    void StopDeadBGM()
+    {
+        if (deadBGMplayed)
+        {
+            float MusicTime = 0.0f;
+            MusicTime += Time.deltaTime;
+            if(MusicTime >= 5.0f)
+            {
+                BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[0];
+                BackgourndMusic.GetComponent<AudioSource>().volume = 1.0f;
+                BackgourndMusic.GetComponent<AudioSource>().Play();
+                deadBGMplayed = false;
+            }
+        }
+    } 
 
     void respawnPac()
     {

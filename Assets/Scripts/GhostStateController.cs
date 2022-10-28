@@ -9,6 +9,7 @@ public class GhostStateController : MonoBehaviour
     public GameObject ghost2;
     public GameObject ghost3;
     public GameObject ghost4;
+
     public bool scared = false;
     public bool recovering = false;
     public bool G1dead = false;
