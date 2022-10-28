@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class InTurnAudioClip : MonoBehaviour
 {
-    [SerializeField]
-    private AudioClip[] audioClips;
+    public AudioClip[] audioClips;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Audio());
+        //StartCoroutine(Audio());
+        this.GetComponent<AudioSource>().Play();
     }
 
     // Update is called once per frame
@@ -19,14 +19,18 @@ public class InTurnAudioClip : MonoBehaviour
         
     }
 
-    IEnumerator Audio()
-    {
-        for(int i = 0; i < audioClips.Length; i++)
-        {
-            this.GetComponent<AudioSource>().clip = audioClips[i];
-            this.GetComponent<AudioSource>().Play();
+    //IEnumerator Audio()
+    //{
+    //    for (int i = 0; i < audioClips.Length; i++)
+    //    {
+    //        this.GetComponent<AudioSource>().clip = audioClips[i];
+    //        this.GetComponent<AudioSource>().Play();
 
-            yield return new WaitForSeconds(audioClips[i].length);
-        }
-    }
+    //        yield return new WaitForSeconds(audioClips[i].length);
+    //    }
+
+        
+
+
+    //}
 }

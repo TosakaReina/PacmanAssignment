@@ -23,6 +23,7 @@ public class PacStudentController : MonoBehaviour
     private Vector2 destination;
     private Vector2 teleportLeft = new Vector2(-14, 0);
     private Vector2 teleportRight = new Vector2(13, 0);
+    private bool scaredBGMplayed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,7 @@ public class PacStudentController : MonoBehaviour
         {
             Debug.Log(item.transform.position);
         }
+        StopScaredBGM();
         
     }
 
@@ -144,28 +146,28 @@ public class PacStudentController : MonoBehaviour
             {
                 destination += Vector2.down;
                 tweener.activeTween = null;
-                tweener.AddTween(item.transform, item.transform.position, destination, 0.05f);
+                tweener.AddTween(item.transform, item.transform.position, destination, 0.001f);
                 lastInput = KeyCode.None;
             }
             else if (lastInput == KeyCode.S)
             {
                 destination += Vector2.up;
                 tweener.activeTween = null;
-                tweener.AddTween(item.transform, item.transform.position, destination, 0.05f);
+                tweener.AddTween(item.transform, item.transform.position, destination, 0.001f);
                 lastInput = KeyCode.None;
             }
             else if (lastInput == KeyCode.A)
             {
                 destination += Vector2.right;
                 tweener.activeTween = null;
-                tweener.AddTween(item.transform, item.transform.position, destination, 0.05f);
+                tweener.AddTween(item.transform, item.transform.position, destination, 0.001f);
                 lastInput = KeyCode.None;
             }
             else if (lastInput == KeyCode.D)
             {
                 destination += Vector2.left;
                 tweener.activeTween = null;
-                tweener.AddTween(item.transform, item.transform.position, destination, 0.05f);
+                tweener.AddTween(item.transform, item.transform.position, destination, 0.001f);
                 lastInput = KeyCode.None;
             }
 
@@ -198,6 +200,31 @@ public class PacStudentController : MonoBehaviour
             footstepSource.volume = 0.2f;
             footstepSource.Play();
             ghostStateController.GetComponent<GhostStateController>().scared = true;
+            BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[1];
+            BackgourndMusic.GetComponent<AudioSource>().Play();
+            scaredBGMplayed = true;
+        }
+    }
+
+    void StopScaredBGM()
+    {
+        if (scaredBGMplayed)
+        {
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime >= 7.0f && elapsedTime < 10.0f)
+            {
+                ghostStateController.GetComponent<GhostStateController>().recovering = true;
+                ghostStateController.GetComponent<GhostStateController>().scared = false;
+            }
+
+            if(elapsedTime >= 10.0f)
+            {
+                BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[0];
+                BackgourndMusic.GetComponent<AudioSource>().Play();
+                scaredBGMplayed = false;
+                elapsedTime = 0.0f;
+                ghostStateController.GetComponent<GhostStateController>().recovering = false;
+            }
         }
     }
 
