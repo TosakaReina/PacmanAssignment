@@ -24,6 +24,7 @@ public class PacStudentController : MonoBehaviour
     private Vector2 teleportLeft = new Vector2(-14, 0);
     private Vector2 teleportRight = new Vector2(13, 0);
     private bool scaredBGMplayed = false;
+    private bool pacDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -100,7 +101,7 @@ public class PacStudentController : MonoBehaviour
             footstepSource.Play();
         }
 
-        if (tweener.activeTween == null)
+        if (tweener.activeTween == null && !pacDead)
         {
             PacAnimator.speed = 0;
         }
@@ -203,6 +204,15 @@ public class PacStudentController : MonoBehaviour
             BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[1];
             BackgourndMusic.GetComponent<AudioSource>().Play();
             scaredBGMplayed = true;
+        }else if (collision.gameObject.CompareTag("Ghost"))
+        {
+
+            PacAnimator.SetBool("die", true);
+            pacDead = true;
+            tweener.activeTween = null;
+            Invoke("respawnPac", 2.0f);
+            pacDead = false;
+            PacAnimator.SetBool("die", false);
         }
     }
 
@@ -227,5 +237,13 @@ public class PacStudentController : MonoBehaviour
             }
         }
     }
+
+    void respawnPac()
+    {
+        item.transform.position = new Vector3(-13.0f, 13.0f, 0.0f);
+        destination = item.transform.position;
+    }
+
+
 
 }
