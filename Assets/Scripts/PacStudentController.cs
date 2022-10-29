@@ -14,10 +14,13 @@ public class PacStudentController : MonoBehaviour
 
     public ParticleSystem wallCollisionParticle;
     private ParticleSystem CloneParticle;
+    public ParticleSystem PacmanDeadParticle;
+    private ParticleSystem ClonePacDeadParticle;
 
     public GameObject cherrySpwaner;
     public GameObject ghostStateController;
     public GameObject BackgourndMusic;
+    public GameObject HUDManager;
 
     private float elapsedTime;
     private Vector2 destination;
@@ -27,6 +30,7 @@ public class PacStudentController : MonoBehaviour
     private bool deadBGMplayed = false;
     private bool pacDead = false;
     private bool powerPacman = false;
+    private int lives = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -203,6 +207,8 @@ public class PacStudentController : MonoBehaviour
             footstepSource.clip = footStepClips[0];
             footstepSource.volume = 0.2f;
             footstepSource.Play();
+            HUDManager.GetComponent<HUDmanage>().score += 10;
+            HUDManager.GetComponent<HUDmanage>().eatenPelletNum += 1;
         }
 
         //collide Cherry
@@ -210,6 +216,7 @@ public class PacStudentController : MonoBehaviour
         {
             Destroy(cherrySpwaner.GetComponent<CherryController>().CloneCherry);
             cherrySpwaner.GetComponent<CherryController>().destroyed = true;
+            HUDManager.GetComponent<HUDmanage>().score += 100;
 
         }
 
@@ -225,6 +232,7 @@ public class PacStudentController : MonoBehaviour
             BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[1];
             BackgourndMusic.GetComponent<AudioSource>().Play();
             scaredBGMplayed = true;
+            HUDManager.GetComponent<HUDmanage>().ghostScared = true;
         }
 
         //collide Ghost
@@ -239,6 +247,12 @@ public class PacStudentController : MonoBehaviour
                 PacAnimator.SetBool("die", true);
                 pacDead = true;
                 tweener.activeTween = null;
+                lives--;
+                HUDManager.GetComponent<HUDmanage>().PacmanDead = true;
+
+                //pacman dead particle effect
+                ClonePacDeadParticle = Instantiate(PacmanDeadParticle, collision.ClosestPoint(item.transform.position), Quaternion.identity);
+                ClonePacDeadParticle.Play();
                 Invoke("respawnPac", 0.85f);
             }
             //ghost Scared or Recovering state
@@ -261,7 +275,9 @@ public class PacStudentController : MonoBehaviour
                 }
                 BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[2];
                 BackgourndMusic.GetComponent<AudioSource>().Play();
+                HUDManager.GetComponent<HUDmanage>().score += 300;
                 deadBGMplayed = true;
+
             }
         }
     }
@@ -271,12 +287,13 @@ public class PacStudentController : MonoBehaviour
         if (scaredBGMplayed)
         {
             elapsedTime += Time.deltaTime;
+            //recovering
             if(elapsedTime >= 7.0f && elapsedTime < 10.0f)
             {
                 ghostStateController.GetComponent<GhostStateController>().recovering = true;
                 ghostStateController.GetComponent<GhostStateController>().scared = false;
             }
-
+            //scared
             if(elapsedTime >= 10.0f)
             {
                 BackgourndMusic.GetComponent<AudioSource>().clip = BackgourndMusic.GetComponent<InTurnAudioClip>().audioClips[0];
