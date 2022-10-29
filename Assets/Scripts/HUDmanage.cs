@@ -14,6 +14,7 @@ public class HUDmanage : MonoBehaviour
     public GameObject GhostState;
     public GameObject PacStu;
     public GameObject BGM;
+    public GameObject GhostMovementManager;
     public GameObject[] PacmanLives;
     
     public Text scoreText;
@@ -115,12 +116,14 @@ public class HUDmanage : MonoBehaviour
             PacStu.GetComponent<PacStudentController>().PacAnimator.speed = 0;
             PacStu.GetComponent<PacStudentController>().enabled = false;
             GhostState.GetComponent<GhostStateController>().enabled = false;
+            GhostMovementManager.GetComponent<GhostController>().enabled = false;
             BGM.SetActive(false);
         }
         else
         {
             PacStu.GetComponent<PacStudentController>().enabled = true;
             GhostState.GetComponent<GhostStateController>().enabled = true;
+            GhostMovementManager.GetComponent<GhostController>().enabled = true;
             BGM.SetActive(true);
             gameStarted = true;
         }
@@ -146,6 +149,7 @@ public class HUDmanage : MonoBehaviour
         PacStu.GetComponent<PacStudentController>().PacAnimator.speed = 0;
         PacStu.GetComponent<PacStudentController>().enabled = false;
         GhostState.GetComponent<GhostStateController>().enabled = false;
+        GhostMovementManager.GetComponent<GhostController>().enabled = false;
         BGM.SetActive(false);
         gameOver = true;
 
