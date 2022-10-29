@@ -8,7 +8,12 @@ public class HUDmanage : MonoBehaviour
     public GameObject ScorePanel;
     public GameObject GameTimerPanel;
     public GameObject GhostScaredPanel;
+    public GameObject RoundStartPrefab;
+    public GameObject GhostState;
+    public GameObject PacStu;
+    public GameObject BGM;
     public GameObject[] PacmanLives;
+    
     public Text scoreText;
     public Text gameTimerText;
     public Text ghostScaredText;
@@ -32,6 +37,9 @@ public class HUDmanage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameState(false);
+        StartCoroutine(RoundStart());
+
     }
 
     // Update is called once per frame
@@ -57,7 +65,7 @@ public class HUDmanage : MonoBehaviour
         }
     }
 
-    void GhostScaredCountDown()
+    private void GhostScaredCountDown()
     {
         
         GhostScaredPanel.SetActive(true);
@@ -69,10 +77,33 @@ public class HUDmanage : MonoBehaviour
         
     }
 
-    void loseLife()
+    private void loseLife()
     {
         PacmanLives[livesNum - 1].SetActive(false);
         livesNum--;
         PacmanDead = false;
+    }
+
+    IEnumerator RoundStart()
+    {
+        yield return new WaitForSeconds(4f);
+        RoundStartPrefab.SetActive(false);
+        gameState(true);
+    }
+
+    private void gameState(bool started)
+    {
+        if (!started)
+        {
+            PacStu.GetComponent<PacStudentController>().enabled = false;
+            GhostState.GetComponent<GhostStateController>().enabled = false;
+            BGM.SetActive(false);
+        }
+        else
+        {
+            PacStu.GetComponent<PacStudentController>().enabled = true;
+            GhostState.GetComponent<GhostStateController>().enabled = true;
+            BGM.SetActive(true);
+        }
     }
 }
