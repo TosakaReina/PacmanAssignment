@@ -233,6 +233,7 @@ public class PacStudentController : MonoBehaviour
             BackgourndMusic.GetComponent<AudioSource>().Play();
             scaredBGMplayed = true;
             HUDManager.GetComponent<HUDmanage>().ghostScared = true;
+            HUDManager.GetComponent<HUDmanage>().eatenPelletNum += 1;
         }
 
         //collide Ghost
@@ -332,6 +333,8 @@ public class PacStudentController : MonoBehaviour
         PacAnimator.SetBool("Left", false);
         lastInput = KeyCode.None;
     }
+
+    
 
 
 
