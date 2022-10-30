@@ -39,15 +39,21 @@ public class PacStudentController : MonoBehaviour
         destination = item.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         pacManMovement();
         PacmanTP();
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log(item.transform.position);
-        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //pacManMovement();
+        //PacmanTP();
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    Debug.Log(item.transform.position);
+        //}
         StopScaredBGM();
         StopDeadBGM();
         

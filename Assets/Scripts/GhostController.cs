@@ -25,7 +25,6 @@ public class GhostController : MonoBehaviour
         {
             clockwisePoints.Add(PointTf.position);
         }
-        Debug.Log(clockwisePoints.Count);
     }
 
     private void FixedUpdate()
@@ -37,7 +36,6 @@ public class GhostController : MonoBehaviour
         else if(G4index == outsidePoints.Count - 1)
         {
             G4Clockwise();
-            Debug.Log(G4Clockwiseindex);
         }
     }
 
